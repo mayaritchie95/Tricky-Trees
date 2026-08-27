@@ -107,3 +107,59 @@
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 })();
+
+/* Testimonial slider */
+(function(){
+  var root = document.querySelector('[data-slider]');
+  if (!root) return;
+  var track = root.querySelector('[data-track]');
+  var slides = Array.prototype.slice.call(track.children);
+  var dotsWrap = root.parentElement.querySelector('[data-dots]');
+  var prev = root.querySelector('[data-prev]');
+  var next = root.querySelector('[data-next]');
+  var i = 0, timer = null;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // build dots
+  slides.forEach(function(_, idx){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Testimonial ' + (idx+1));
+    b.addEventListener('click', function(){ go(idx, true); });
+    dotsWrap.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function render(){
+    track.style.transform = 'translateX(' + (-i * 100) + '%)';
+    dots.forEach(function(d, idx){
+      if (idx === i) d.setAttribute('aria-current','true'); else d.removeAttribute('aria-current');
+    });
+  }
+  function go(n, userInitiated){
+    i = (n + slides.length) % slides.length;
+    render();
+    if (userInitiated) restart();
+  }
+  function restart(){
+    if (reduce) return;
+    clearInterval(timer);
+    timer = setInterval(function(){ go(i+1); }, 6500);
+  }
+
+  prev.addEventListener('click', function(){ go(i-1, true); });
+  next.addEventListener('click', function(){ go(i+1, true); });
+
+  // keyboard support
+  root.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft') go(i-1, true);
+    else if (e.key === 'ArrowRight') go(i+1, true);
+  });
+
+  // pause on hover
+  root.addEventListener('mouseenter', function(){ clearInterval(timer); });
+  root.addEventListener('mouseleave', restart);
+
+  render();
+  restart();
+})();
