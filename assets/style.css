@@ -136,10 +136,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .brand__name { font-family: var(--font-display); font-weight: 700; font-size: 1.32rem; letter-spacing: -.01em; line-height: 1; }
 .brand__sub { display: block; font-family: var(--font-body); font-size: .62rem; text-transform: uppercase; letter-spacing: .22em; color: var(--stone-dk); font-weight: 600; margin-top: 3px; }
 
-.nav__links { display: flex; align-items: center; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.nav__links { display: flex; align-items: center; gap: 2px; list-style: none; margin: 0; padding: 0; }
 .nav__links a {
-  text-decoration: none; color: var(--ink); font-weight: 500; font-size: .96rem;
-  padding: 9px 13px; border-radius: var(--radius); transition: background .15s var(--ease), color .15s var(--ease);
+  text-decoration: none; color: var(--ink); font-weight: 500; font-size: .94rem;
+  padding: 9px 11px; border-radius: var(--radius); white-space: nowrap; transition: background .15s var(--ease), color .15s var(--ease);
 }
 .nav__links a:hover { background: rgba(47,107,79,.10); color: var(--canopy-dk); }
 .nav__links a[aria-current="page"] { color: var(--canopy-dk); font-weight: 600; }
@@ -151,7 +151,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .nav__toggle svg { display: block; }
 
-@media (max-width: 940px) {
+@media (max-width: 1050px) {
   .nav__toggle { display: inline-flex; }
   .nav__links {
     position: absolute; top: 100%; left: 0; right: 0;
@@ -375,7 +375,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ---------- Single-page additions ---------- */
 :root { --header-offset: 128px; }
-@media (max-width: 940px){ :root { --header-offset: 118px; } }
+@media (max-width: 1050px){ :root { --header-offset: 118px; } }
 section[id] { scroll-margin-top: var(--header-offset); }
 
 /* legal accordion */
