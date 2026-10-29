@@ -425,7 +425,9 @@
         <div class="formcard">
           <h3 class="mt-0" style="font-size:1.6rem;">Request a callback</h3>
           <p style="color:var(--stone-dk);">Fields marked <span class="req">*</span> are required.</p>
-          <form id="contact-form" novalidate>
+          <form id="contact-form" action="https://formspree.io/f/maeebkzp" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New website lead — Tricky Trees LTD">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
             <div class="field">
               <label for="fullname">Full name <span class="req">*</span></label>
               <input id="fullname" name="fullname" type="text" autocomplete="name" required>
@@ -445,7 +447,7 @@
             </div>
             <div class="field">
               <label for="email">Email <span class="opt">(optional)</span></label>
-              <input id="email" name="email" type="email" autocomplete="email">
+              <input id="email" name="_replyto" type="email" autocomplete="email">
               <p class="form-error">Please enter a valid email address.</p>
             </div>
             <div class="field">

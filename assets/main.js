@@ -59,6 +59,23 @@
       if (wrap) wrap.classList.toggle('invalid', on);
     }
 
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var submitLabel = submitBtn ? submitBtn.textContent : 'Send my request';
+
+    function setStatus(msg, isError) {
+      if (!status) return;
+      status.textContent = msg;
+      if (isError) {
+        status.className = 'form-status';
+        status.style.background = 'rgba(163,52,31,.1)';
+        status.style.color = '#a3341f';
+      } else {
+        status.className = 'form-status form-status--ok';
+        status.style.background = '';
+        status.style.color = '';
+      }
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var ok = true;
@@ -83,23 +100,38 @@
 
       if (!ok) {
         if (firstBad) firstBad.focus();
-        if (status) {
-          status.textContent = 'Please check the highlighted fields and try again.';
-          status.className = 'form-status';
-          status.style.background = 'rgba(163,52,31,.1)';
-          status.style.color = '#a3341f';
-        }
+        setStatus('Please check the highlighted fields and try again.', true);
         return;
       }
 
-      if (status) {
-        status.className = 'form-status form-status--ok';
-        status.style.background = '';
-        status.style.color = '';
-        status.textContent = 'Thanks \u2014 your request has been received. We\u2019ll call you back shortly. For anything urgent, call 705-571-9800.';
-      }
-      form.reset();
-      status && status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Submit to Formspree
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending\u2026'; }
+      setStatus('Sending your request\u2026', false);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function (response) {
+        if (response.ok) {
+          setStatus('Thanks \u2014 your request has been received. We\u2019ll call you back shortly. For anything urgent, call 705-571-9800.', false);
+          form.reset();
+        } else {
+          response.json().then(function (data) {
+            var msg = (data && data.errors && data.errors.length)
+              ? data.errors.map(function (er) { return er.message; }).join(', ')
+              : 'Something went wrong sending your request. Please call us at 705-571-9800.';
+            setStatus(msg, true);
+          }).catch(function () {
+            setStatus('Something went wrong sending your request. Please call us at 705-571-9800.', true);
+          });
+        }
+      }).catch(function () {
+        setStatus('Couldn\u2019t reach the server. Please check your connection, or call us at 705-571-9800.', true);
+      }).then(function () {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitLabel; }
+        status && status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     });
   }
 
