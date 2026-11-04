@@ -707,7 +707,7 @@ section[id] { scroll-margin-top: var(--header-offset); }
 }
 
 /* ---------- Footer "built by" credit ---------- */
-.footer-credit { padding: 10px 0 2px; }
+.footer-credit { padding: 10px 0 2px; text-align: center; }
 .footer-credit a {
   display: inline-flex; align-items: center; gap: 6px;
   color: rgba(245,242,235,.32); font-size: .76rem; letter-spacing: .01em; text-decoration: none;
