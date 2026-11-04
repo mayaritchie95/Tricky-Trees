@@ -705,3 +705,14 @@ section[id] { scroll-margin-top: var(--header-offset); }
   .slider__btn { width: 40px; height: 40px; }
   .slider { gap: 6px; }
 }
+
+/* ---------- Footer "built by" credit ---------- */
+.footer-credit { padding: 14px 0 4px; }
+.footer-credit a {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: rgba(245,242,235,.55); font-size: .9rem; text-decoration: none;
+  transition: color .18s var(--ease);
+}
+.footer-credit a:hover { color: rgba(245,242,235,.85); }
+.footer-credit__logo { height: 16px; width: auto; display: block; opacity: .85; transition: opacity .18s var(--ease); }
+.footer-credit a:hover .footer-credit__logo { opacity: 1; }
