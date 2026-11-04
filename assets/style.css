@@ -707,7 +707,7 @@ section[id] { scroll-margin-top: var(--header-offset); }
 }
 
 /* ---------- Footer "built by" credit ---------- */
-.footer-credit { padding: 10px 0 2px; text-align: center; }
+.footer-credit { display: inline-flex; align-items: center; }
 .footer-credit a {
   display: inline-flex; align-items: center; gap: 6px;
   color: rgba(245,242,235,.32); font-size: .76rem; letter-spacing: .01em; text-decoration: none;
@@ -716,3 +716,5 @@ section[id] { scroll-margin-top: var(--header-offset); }
 .footer-credit a:hover { color: rgba(245,242,235,.6); }
 .footer-credit__logo { height: 12px; width: auto; display: block; opacity: .45; transition: opacity .18s var(--ease); }
 .footer-credit a:hover .footer-credit__logo { opacity: .8; }
+/* on narrow screens the three items stack; keep the credit centered then */
+@media (max-width: 680px){ .footer-credit { order: 3; width: 100%; justify-content: center; margin-top: 4px; } }
